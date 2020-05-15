@@ -1,22 +1,20 @@
 // Requiring bcrypt for password hashing. Using the bcryptjs version as the regular bcrypt module sometimes causes errors on Windows machines
 module.exports = function (sequelize, DataTypes) {
     var Schedule = sequelize.define("Schedule", {
-        user: {
-            type: DataTypes.FOREIGNKEY
+        gameName: {
+            type: DataTypes.STRING
         },
         start_time: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
         },
         end_time: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
         }
     });
 
-    Availability.associate = function (models) {
-        Availability.belongsTo(models.User, {
-            foreignKey: {
-                allowNull: false
-            }
+    Schedule.associate = function (models) {
+        Schedule.belongsToMany(models.User, {
+            through: "User_Schedule"
         });
     };
 
