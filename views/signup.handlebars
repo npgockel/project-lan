@@ -1,74 +1,111 @@
- {{> navbar user}}
+{{> navbar user}}
 
-<div class="container">  
-    <div class="row">
+<div class="container">
+  <div class="row">
     <div class="col-md">
       <div class="jumbotron">
         <h4 class="display-6">Signup Form</h4>
       </div>
     </div>
   </div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form class="signup">
-                <div class="form-group">
-                    <label for="email-input">Email address</label>
-                    <input type="email" class="form-control" id="email-input" name="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="password-input">Password</label>
-                    <input type="password" class="form-control" id="password-input" name="password" placeholder="Password">
-                </div>
-                <div style="display: none" id="alert" class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span> <span class="msg"></span>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
-            </form>
-            <br />
-            <p>Or log in <a href="/login">here</a></p>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <form class="signup">
+        <div class="form-group">
+          <label for="email-input">Email address</label>
+          <input type="email" class="form-control" id="email-input" name="email" placeholder="Email">
         </div>
+        <div class="form-group">
+          <label for="password-input">Password</label>
+          <input type="password" class="form-control" id="password-input" name="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+          <label for="username-input">Username</label>
+          <input type="text" class="form-control" id="username-input" name="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+          <label for="steamd_ID-input">Steam ID</label>
+          <input type="text" class="form-control" id="steam_ID-input" name="steam_ID" placeholder="Steam ID">
+        </div>
+
+        <div class="form-group">
+          <label for="steam_name-input">Steam Name</label>
+          <input type="text" class="form-control" id="steam_name-input" name="steam_name" placeholder="Steam Name">
+        </div>
+
+        <div class="form-group">
+          <label for="steam_group-input">Steam Group</label>
+          <input type="text" class="form-control" id="steam_group-input" name="steam_name" placeholder="Steam Group">
+        </div>
+
+        <div class="form-group">
+          <label for="discord_invite-input">Discord Invite</label>
+          <input type="url" class="form-control" id="discord_invite-input" name="discord_invite"
+            placeholder="Discord Invite">
+        </div>
+
+        <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span> <span class="msg"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+      <br />
+      <p>Or log in <a href="/login">here</a></p>
     </div>
+  </div>
 </div>
 
 <script>
-$(document).ready(function() {
-  // Getting references to our form and inputs
-  var signupForm = $("form.signup");
-  var emailInput = $("input#email-input");
-  var passwordInput = $("input#password-input");
+  $(document).ready(function () {
+    // Getting references to our form and inputs
+    var signupForm = $("form.signup");
+    var emailInput = $("input#email-input");
+    var passwordInput = $("input#password-input");
+    var usernameInput = $("#username-input");
+    var steamIDInput = $("#steam_ID-input");
+    var steamNameInput = $("#steam_name-input");
+    var steamGroupInput = $("#steam_group-input");
+    var discordInviteInput = $("#discord_invite-input");
 
-  // When the form is submitted, we validate there's an email and password entered
-  signupForm.on("submit", function(event) {
-    event.preventDefault();
-    var userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim()
-    };
+    // When the form is submitted, we validate there's an email and password entered
+    signupForm.on("submit", function (event) {
+      event.preventDefault();
+      var userData = {
+        email: emailInput.val().trim(),
+        password: passwordInput.val().trim(),
+        username: usernameInput.val().trim(),
+        steam_ID: steamIDInput.val().trim(),
+        steam_name: steamNameInput.val().trim(),
+        steam_group: steamGroupInput.val().trim(),
+        discord_invite: discordInviteInput.val().trim(),
+      };
 
-    if (!userData.email || !userData.password) {
-      return;
+      if (!userData.email || !userData.password) {
+        return;
+      }
+
+      // If we have an email and password we run the signUp function and clear the form
+      signupUser(userData);
+      emailInput.val("");
+      passwordInput.val("");
+      usernameInput.val("")
+    });
+
+    // signUp does a post to our "auth/login" route and if successful, redirects us the the members page
+    function signupUser(userData) {
+      $.post("/auth/signup",
+        userData
+      )
+        .then(function () {
+          window.location.replace("/forum");
+          // If there's an error, log the error
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
     }
-
-    // If we have an email and password we run the signUp function and clear the form
-    signupUser(userData.email, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
   });
-
-  // signUp does a post to our "auth/login" route and if successful, redirects us the the members page
-  function signupUser(email, password) {
-    $.post("/auth/signup", {
-      email: email,
-      password: password
-    })
-      .then(function() {
-        window.location.replace("/forum");
-        // If there's an error, log the error
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
-});
 </script>

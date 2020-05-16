@@ -1,0 +1,100 @@
+{{> navbar user}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <div class="jumbotron">
+        <h4 class="display-6">Schedule Form</h4>
+      </div>
+      <div class="month">
+        <ul>
+          <li class="prev">&#10094;</li>
+          <li class="next">&#10095;</li>
+          <li>
+            May<br>
+            <span style="font-size:18px">2020</span>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="weekdays">
+        <li>Mo</li>
+        <li>Tu</li>
+        <li>We</li>
+        <li>Th</li>
+        <li>Fr</li>
+        <li>Sa</li>
+        <li>Su</li>
+      </ul>
+
+      <ul class="days">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li><span class="active">16</span></li>
+        <li>17</li>
+        <li>18</li>
+        <li>19</li>
+        <li>20</li>
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+        <li>24</li>
+        <li>25</li>
+        <li>26</li>
+        <li>27</li>
+        <li>28</li>
+        <li>29</li>
+        <li>30</li>
+        <li>31</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{{!-- plan b --}}
+{{!-- <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div style="overflow:hidden;">
+        <div class="form-group">
+          <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+              <button class="glyphicon glyphicon-calendar">Some Text</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> --}}
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".days").on("click", function () {
+      $("li").attr("class", "active")
+      console.log("clicked!")
+    })
+  })
+</script>

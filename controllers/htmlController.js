@@ -8,21 +8,25 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 /**
  * Home Page
  */
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   res.render("index", { user: req.user });
 });
 
 /**
  * Home Page, again 
  */
-router.get("/home", function(req, res) {
+router.get("/home", function (req, res) {
   res.render("index", { user: req.user });
+});
+
+router.get("/schedule", function (req, res) {
+  res.render("schedule", { user: req.user });
 });
 
 /** 
  * Signup page
  */
-router.get("/signup", function(req, res) {
+router.get("/signup", function (req, res) {
   if (req.user) {
     res.redirect("/");
   } else {
@@ -33,7 +37,7 @@ router.get("/signup", function(req, res) {
 /**
  * Login page
  */
-router.get("/login", function(req, res) {
+router.get("/login", function (req, res) {
   if (req.user) {
     res.redirect("/");
   } else {
@@ -45,7 +49,7 @@ router.get("/login", function(req, res) {
  * Forum Page - 
  * Notice loading our posts, with that include!
  */
-router.get("/forum", isAuthenticated, function(req, res) {
+router.get("/forum", isAuthenticated, function (req, res) {
   db.Post.findAll({ raw: true, include: [db.User] }) // Joins User to Posts! And scrapes all the seqeulize stuff off
     .then(dbModel => {
       res.render("forum", { user: req.user, posts: dbModel });
@@ -56,7 +60,7 @@ router.get("/forum", isAuthenticated, function(req, res) {
 /**
  * Generic Error Page
  */
-router.get("*", function(req, res) {
+router.get("*", function (req, res) {
   res.render("errors/404", { user: req.user });
 });
 
