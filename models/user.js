@@ -6,6 +6,7 @@ module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define(
     "User",
     {
+
       // The email cannot be null, and must be a proper email before creation
       email: {
         type: DataTypes.STRING,
@@ -21,6 +22,9 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       },
       // https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.28v0001.29
+      username: {
+        type: DataTypes.STRING
+      },
       steam_ID: {
         type: DataTypes.STRING
       },
