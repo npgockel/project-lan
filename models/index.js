@@ -4,13 +4,16 @@ var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
 var env = process.env.NODE_ENV || 'development';
-var config = {
-  "username": process.env.USERNAME,
-  "password": process.env.DB_PASSWORD,
-  "database": process.env.DATABASE,
-  "host": process.env.HOST,
-  "dialect": "mysql"
-}
+// var config = {
+//   "username": process.env.USERNAME,
+//   "password": process.env.DB_PASSWORD,
+//   "database": process.env.DATABASE,
+//   "host": process.env.HOST,
+//   "dialect": "mysql"
+// }
+
+var config    = require(__dirname + '/../config/config.js')[env];
+console.log('this is our config!!!', config)
 var db = {};
 if (env === "development") {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
