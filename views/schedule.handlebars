@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md">
       <div class="jumbotron">
-        <h4 class="display-6">Schedule Form</h4>
+        <h4 class="display-6">My Schedule</h4>
       </div>
       <div class="month">
         <ul>
@@ -43,7 +43,7 @@
         <li>13</li>
         <li>14</li>
         <li>15</li>
-        <li><span class="active">16</span></li>
+        <li>16</li>
         <li>17</li>
         <li>18</li>
         <li>19</li>
@@ -91,10 +91,33 @@
 </div>
 
 <script type="text/javascript">
+
   $(document).ready(function () {
-    $(".days").on("click", function () {
-      $("li").attr("class", "active")
-      console.log("clicked!")
+    let daySelected = $(".days li")
+
+    function newTime() {
+      var addTime = $("<div>")
+        .text("Schedule a Time ");
+      $(".container").append(addTime);
+
+      var startTime = $("<input>")
+        .attr("type", "text")
+        .addClass("startTime")
+        .attr("placeholder", "Start Time");
+
+      var endTime = $("<input>")
+        .attr("type", "text")
+        .addClass("endTime")
+        .attr("placeholder", "End Time");
+
+      $(addTime).append(startTime, endTime);
+    }
+
+    $(daySelected).on("click", function () {
+      event.preventDefault();
+      $(this).wrapInner("<span class='active'></span>");
+      newTime();
     })
+
   })
 </script>
