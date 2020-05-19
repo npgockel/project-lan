@@ -18,9 +18,23 @@ router.get("/", function (req, res) {
 router.get("/home", function (req, res) {
   res.render("index", { user: req.user });
 });
-
+// fourm shows post gamedeploy
+router.get("/deploy", function (req, res) {
+  res.render("deploy", { user: req.user });
+});
+// shows my schedule
 router.get("/schedule", function (req, res) {
   res.render("schedule", { user: req.user });
+});
+
+// display Friends page
+router.get("/friends", function (req, res) {
+  res.render("friends", { user: req.user });
+});
+
+// display User console page
+router.get("/profile", function (req, res) {
+  res.render("profile", { user: req.user });
 });
 
 /** 
@@ -49,10 +63,10 @@ router.get("/login", function (req, res) {
  * Forum Page - 
  * Notice loading our posts, with that include!
  */
-router.get("/forum", isAuthenticated, function (req, res) {
+router.get("/deploy", isAuthenticated, function (req, res) {
   db.Post.findAll({ raw: true, include: [db.User] }) // Joins User to Posts! And scrapes all the seqeulize stuff off
     .then(dbModel => {
-      res.render("forum", { user: req.user, posts: dbModel });
+      res.render("deploy", { user: req.user, posts: dbModel });
     })
     .catch(err => res.status(422).json(err));
 });

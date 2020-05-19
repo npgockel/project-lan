@@ -96,6 +96,7 @@
     let daySelected = $(".days li")
 
     function newTime() {
+      
       var addTime = $("<div>")
         .text("Schedule a Time ");
       $(".container").append(addTime);
@@ -110,6 +111,9 @@
         .addClass("endTime")
         .attr("placeholder", "End Time");
 
+      var submitB = $("<button>")
+        .addClass("submitTime btn-primary")
+
       $(addTime).append(startTime, endTime);
     }
 
@@ -118,6 +122,41 @@
       $(this).wrapInner("<span class='active'></span>");
       newTime();
     })
+
+  var startTime = $(".startTime");
+  var endTime = $(".endTime");
+
+    // When the form is submitted, we validate there's a title and body entered
+   $(".submit-time").on("click", function (event) {
+      event.preventDefault();
+      console.log(startTime.val(), endTime.val())
+      var scheduleData = {
+        startTime: startTime.val().trim(),
+        endTime: endTime.val().trim()
+      };
+  // if no input return
+      if (!startTime.title || !endTime.body) {
+        return;
+      }
+
+     sendSchedule(, );
+    startTime.val("");
+    endTime.val("");
+  });
+
+    function sendSchedule(startTime.data, endTime.data ,day.data) {
+      $.post("/api/posts", {
+        title: title,
+        body: body
+      })
+        .then(function () {
+          window.location.replace("/forum");
+          // If there's an error, log the error
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
 
   })
 </script>

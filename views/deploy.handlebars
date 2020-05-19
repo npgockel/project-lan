@@ -82,14 +82,14 @@
             bodyInput.val("");
         });
 
-        // sendPost does a post to our "api/posts" route and if successful, redirects us the the deploy page
+        // sendPost does a post to our "api/posts" route and if successful, redirects us the the forum page
         function sendPost(title, body) {
             $.post("/api/posts", {
                 title: title,
                 body: body
             })
                 .then(function () {
-                    window.location.replace("/deploy");
+                    window.location.replace("/forum");
                     // If there's an error, log the error
                 })
                 .catch(function (err) {
