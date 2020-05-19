@@ -22,3 +22,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
+.row {
+background-color: white;
+}
