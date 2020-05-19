@@ -61,6 +61,10 @@
         <li>31</li>
       </ul>
     </div>
+
+    <label class="time-block-form">
+
+    </label>
   </div>
 </div>
 
@@ -95,68 +99,87 @@
   $(document).ready(function () {
     let daySelected = $(".days li")
 
-    function newTime() {
-      
-      var addTime = $("<div>")
-        .text("Schedule a Time ");
-      $(".container").append(addTime);
-
-      var startTime = $("<input>")
-        .attr("type", "text")
-        .addClass("startTime")
-        .attr("placeholder", "Start Time");
-
-      var endTime = $("<input>")
-        .attr("type", "text")
-        .addClass("endTime")
-        .attr("placeholder", "End Time");
-
-      var submitB = $("<button>")
-        .addClass("submitTime btn-primary")
-
-      $(addTime).append(startTime, endTime);
-    }
-
     $(daySelected).on("click", function () {
       event.preventDefault();
       $(this).wrapInner("<span class='active'></span>");
       newTime();
+      console.log($(this).text())
     })
 
-  var startTime = $(".startTime");
-  var endTime = $(".endTime");
+    // input classes
+    var startTime = $(".startTime");
+    var endTime = $(".endTime");
+
+    // show input when user selects a day
+    function newTime() {
+
+      var addTime = $("<h2>")
+        .text("Schedule a Time ")
+        .addClass("jumbotron");
+      //$(".container").append(addTime);
+
+      var startTime = $("<input>")
+        .attr("type", "time")
+        .addClass("startTime")
+        .attr("placeholder", "Start Time");
+
+      var endTime = $("<input>")
+        .attr("type", "time")
+        .addClass("endTime")
+        .attr("placeholder", "End Time");
+
+      var submitButton = $("<button>")
+        .addClass("submitTime")
+        .text("+");
+
+      $(".time-block-form").append(addTime, startTime, endTime, submitButton);
+      // $(endTime).append(submitButton); 
+    }
+
 
     // When the form is submitted, we validate there's a title and body entered
-   $(".submit-time").on("click", function (event) {
+    $(document).on("click", ".submitTime", function () {
       event.preventDefault();
+      console.log("i was clicked");
       console.log(startTime.val(), endTime.val())
+
+      //data object
       var scheduleData = {
+        date: daySelected.text(),
         startTime: startTime.val().trim(),
-        endTime: endTime.val().trim()
+        endTime: endTime.val().trim(),
+
       };
-  // if no input return
-      if (!startTime.title || !endTime.body) {
+      console.log("43984938499384911", JSON.stringify(scheduleData))
+      // if no input return
+      if (!scheduleData.startTime || !scheduleData.endTime) {
         return;
       }
 
-     sendSchedule(, );
-    startTime.val("");
-    endTime.val("");
-  });
+      //send ajax to server
+      $.post("/api/timeblocks", scheduleData,
+        function (data) {
 
-    function sendSchedule(startTime.data, endTime.data ,day.data) {
-      $.post("/api/posts", {
-        title: title,
-        body: body
-      })
-        .then(function () {
-          window.location.replace("/forum");
-          // If there's an error, log the error
-        })
-        .catch(function (err) {
-          console.log(err);
+          // If a table is available... tell user they are booked.
+          if (data) {
+            alert("Time is added");
+          }
+
+          // If a table is available... tell user they on the waiting list.
+          else {
+            alert("Select Anouther Time");
+          }
+
+          //clear input
+          startTime.val("");
+          endTime.val("");
         });
-    }
+
+    });
 
   })
+
+
+
+
 </script>

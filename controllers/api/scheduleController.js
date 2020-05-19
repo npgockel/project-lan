@@ -4,7 +4,7 @@ const router = require("express").Router();
 /**
  * Schedule Read - All
  */
-router.get("/", function (req, res) {
+router.get("/", function(req, res) {
   db.Schedule.findAll(req.query)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -13,7 +13,7 @@ router.get("/", function (req, res) {
 /**
  * Schedule Read - One
  */
-router.get("/:id", function (req, res) {
+router.get("/:id", function(req, res) {
   db.Schedule.findById(req.params.id)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -24,7 +24,7 @@ router.get("/:id", function (req, res) {
  * Notice how we are using the 'withPassword' scope.
  * This allows for us to modify a Schedule's password, as defined in the Schedule model
  */
-router.post("/", function (req, res) {
+router.post("/", function(req, res) {
   db.Schedule.scope("withPassword")
     .create(req.body)
     .then((dbModel) => res.json(dbModel))
@@ -34,7 +34,7 @@ router.post("/", function (req, res) {
 /**
  * Schedule - Update
  */
-router.put("/:id", function (req, res) {
+router.put("/:id", function(req, res) {
   db.Schedule.update(req.body, { where: { id: req.params.id } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -43,7 +43,7 @@ router.put("/:id", function (req, res) {
 /**
  * Schedule - Delete
  */
-router.delete("/:id", function (req, res) {
+router.delete("/:id", function(req, res) {
   db.Schedule.destroy({ where: { id: req.params.id } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));

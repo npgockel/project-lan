@@ -13,7 +13,7 @@ body {
 .month {
   padding: 70px 25px;
   width: 100%;
-  background: #1abc9c;
+  background: #c901fb;
   text-align: center;
 }
 
@@ -78,6 +78,9 @@ body {
   border-radius: 50%;
   background: rgb(185, 57, 57);
   color: white !important;
+}
+.submitTime {
+  background-color: #463af5;
 }
 
 /* Add media queries for smaller screens */

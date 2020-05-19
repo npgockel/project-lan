@@ -4,6 +4,9 @@ module.exports = function(sequelize, DataTypes) {
     gameName: {
       type: DataTypes.STRING,
     },
+    selected_date: {
+      type: DataTypes.DATE,
+    },
     start_time: {
       type: DataTypes.DATE,
     },
