@@ -106,53 +106,55 @@
       console.log($(this).text())
     })
 
-    // input classes
-    var startTime = $(".startTime");
-    var endTime = $(".endTime");
+
 
     // show input when user selects a day
     function newTime() {
 
-      var addTime = $("<h2>")
+      var add_time = $("<h2>")
         .text("Schedule a Time ")
         .addClass("jumbotron");
       //$(".container").append(addTime);
 
-      var startTime = $("<input>")
+      var start_time = $("<input id='start_time'>")
         .attr("type", "time")
-        .addClass("startTime")
+        .addClass("start_time")
         .attr("placeholder", "Start Time");
 
-      var endTime = $("<input>")
+      var end_time = $("<input id='end_time'>")
         .attr("type", "time")
-        .addClass("endTime")
+        .addClass("end_time")
         .attr("placeholder", "End Time");
 
       var submitButton = $("<button>")
-        .addClass("submitTime")
+        .addClass("submit_time")
         .text("+");
 
-      $(".time-block-form").append(addTime, startTime, endTime, submitButton);
+      $(".time-block-form").append(add_time, start_time, end_time, submitButton);
       // $(endTime).append(submitButton); 
     }
 
 
     // When the form is submitted, we validate there's a title and body entered
-    $(document).on("click", ".submitTime", function () {
+    $(document).on("click", ".submit_time", function () {
+      // input classes
+      var start_time = $("#start_time");
+      var end_time = $("#end_time");
+
       event.preventDefault();
       console.log("i was clicked");
-      console.log(startTime.val(), endTime.val())
+      console.log(start_time.val(), end_time.val())
 
       //data object
       var scheduleData = {
-        date: daySelected.text(),
-        startTime: startTime.val().trim(),
-        endTime: endTime.val().trim(),
+        //date: daySelected.text(),
+        start_time: start_time.val().trim(),
+        end_time: end_time.val().trim(),
 
       };
-      console.log("43984938499384911", JSON.stringify(scheduleData))
+      console.log(JSON.stringify(scheduleData))
       // if no input return
-      if (!scheduleData.startTime || !scheduleData.endTime) {
+      if (!scheduleData.start_time || !scheduleData.end_time) {
         return;
       }
 
@@ -171,8 +173,8 @@
           }
 
           //clear input
-          startTime.val("");
-          endTime.val("");
+          start_time.val("");
+          end_time.val("");
         });
 
     });

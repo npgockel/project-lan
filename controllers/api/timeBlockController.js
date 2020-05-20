@@ -26,7 +26,8 @@ router.get("/:id", function(req, res) {
 router.post("/", function(req, res) {
   db.Timeblocks.create({
     UserId: req.user.id,
-    scheduleData,
+    start_time: req.body.start_time,
+    end_time: req.body.end_time,
   })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
