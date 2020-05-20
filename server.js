@@ -52,7 +52,7 @@ db.sequelize.sync(config).then(function () {
   if (process.env.NODE_ENV === "test") {
     db.User.create({ email: "test@test.com", password: "password" }).then(
       () => {
-        console.log("Test User Created");
+        console.log("Test User Creation Complete");
       }
     );
   }
