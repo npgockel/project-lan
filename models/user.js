@@ -74,14 +74,10 @@ module.exports = function (sequelize, DataTypes) {
     User.hasMany(models.Post, {
       onDelete: "cascade"
     });
-    User.belongsToMany(models.Schedule, {
+    User.belongsToMany(models.Availability, {
       through: "User_Schedule"
     });
-    User.belongsToMany(models.User, {
-      through: "Friends",
-      as: "Friend"
-    });
-    User.hasMany(models.Timeblock, {
+    User.hasMany(models.Timeblocks, {
       onDelete: "cascade"
     })
   };
