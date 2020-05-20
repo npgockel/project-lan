@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md">
             <div class="jumbotron">
-                <h4 class="display-6">Hello, {{user.email}}!</h4>
+                <h4 class="display-6">Hello, {{user.username}}!</h4>
             </div>
         </div>
     </div>
@@ -12,6 +12,16 @@
         <div class="col-md">
             <legend>Deployments</legend>
             <div id="forum-posts">
+            {{#each schedules}}
+            <div class="forum-post-card card text-white bg-primary mb-3">
+                <div class="card-header"><h4 class="text-white">{{gameName}}</h4></div>
+                <div class="card-body">
+                    <p class="card-text">{{start_time}}{{end_time}}</p>
+                    by {{'User.email'}}
+                    @ {{createdAt}}
+                </div>
+            </div>
+            {{/each}}
             {{#each posts}}
             <div class="forum-post-card card text-white bg-primary mb-3">
                 <div class="card-header"><h4 class="text-white">{{title}}</h4></div>

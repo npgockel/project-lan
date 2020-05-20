@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md">
       <div class="jumbotron">
-        <h4 class="display-6">My Schedule</h4>
+        <h4 class="display-6">My Availability</h4>
       </div>
       <div class="month">
         <ul>
@@ -60,11 +60,11 @@
         <li>30</li>
         <li>31</li>
       </ul>
+
     </div>
-
     <label class="time-block-form">
-
     </label>
+
   </div>
 </div>
 
@@ -112,7 +112,7 @@
     function newTime() {
 
       var add_time = $("<h2>")
-        .text("Schedule a Time ")
+        .text("Availability a Time ")
         .addClass("jumbotron");
       //$(".container").append(addTime);
 
@@ -159,7 +159,7 @@
       }
 
       //send ajax to server
-      $.post("/api/timeblocks", scheduleData,
+      $.post("/api/availability", scheduleData,
         function (data) {
 
           // If a table is available... tell user they are booked.
