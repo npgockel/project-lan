@@ -1,138 +1,43 @@
 {{> navbar user}}
 
+
 <div class="container">
   <div class="row">
-    <div class="col-md">
-      <div class="jumbotron">
-        <h4 class="display-6">My Availability</h4>
-      </div>
-      <div class="month">
-        <ul>
-          <li class="prev">&#10094;</li>
-          <li class="next">&#10095;</li>
-          <li>
-            May<br>
-            <span style="font-size:18px">2020</span>
-          </li>
-        </ul>
-      </div>
+    <div>
+      <h3> When are you available? </h3>
+      <input id="start_time" placeholder="Start Time"></input>
+      <input id="end_time" placeholder="End Time"></input>
+      <button class="button is-primary submit_time">+</button>
 
-      <ul class="weekdays">
-        <li>Mo</li>
-        <li>Tu</li>
-        <li>We</li>
-        <li>Th</li>
-        <li>Fr</li>
-        <li>Sa</li>
-        <li>Su</li>
-      </ul>
+      <h3>Your Availabilities:</h3>
 
-      <ul class="days">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-        <li>11</li>
-        <li>12</li>
-        <li>13</li>
-        <li>14</li>
-        <li>15</li>
-        <li>16</li>
-        <li>17</li>
-        <li>18</li>
-        <li>19</li>
-        <li>20</li>
-        <li>21</li>
-        <li>22</li>
-        <li>23</li>
-        <li>24</li>
-        <li>25</li>
-        <li>26</li>
-        <li>27</li>
-        <li>28</li>
-        <li>29</li>
-        <li>30</li>
-        <li>31</li>
-      </ul>
+      {{#each Timeblocks}}<li>{{start_time}} - {{end_time}}</li><button class="delete-time" data-value={{id}}>Delete
+        {{id}}</button>{{/each}}
 
     </div>
-    <label class="time-block-form">
-    </label>
 
   </div>
 </div>
 
-
-
-
-
-{{!-- plan b --}}
-{{!-- <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div style="overflow:hidden;">
-        <div class="form-group">
-          <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control" />
-            <span class="input-group-addon">
-              <button class="glyphicon glyphicon-calendar">Some Text</button>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> --}}
-
-
-
-
-
-</div>
-
 <script type="text/javascript">
-
   $(document).ready(function () {
-    let daySelected = $(".days li")
 
-    $(daySelected).on("click", function () {
-      event.preventDefault();
-      $(this).wrapInner("<span class='active'></span>");
-      newTime();
-      console.log($(this).text())
-    })
+    flatpickr($("#start_time"), {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+    });
 
+    flatpickr($("#end_time"), {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: false
+    });
 
+    var submitButton = $("<button>")
+      .addClass("submit_time")
+      .text("+");
 
-    // show input when user selects a day
-    function newTime() {
-
-      var add_time = $("<h2>")
-        .text("Availability a Time ")
-        .addClass("jumbotron");
-      //$(".container").append(addTime);
-
-      var start_time = $("<input id='start_time'>")
-        .attr("type", "time")
-        .addClass("start_time")
-        .attr("placeholder", "Start Time");
-
-      var end_time = $("<input id='end_time'>")
-        .attr("type", "time")
-        .addClass("end_time")
-        .attr("placeholder", "End Time");
-
-      var submitButton = $("<button>")
-        .addClass("submit_time")
-        .text("+");
-
-      $(".time-block-form").append(add_time, start_time, end_time, submitButton);
-      // $(endTime).append(submitButton); 
-    }
 
 
     // When the form is submitted, we validate there's a title and body entered
@@ -175,13 +80,23 @@
           //clear input
           start_time.val("");
           end_time.val("");
+          location.reload();
         });
 
     });
 
-  })
 
 
 
+    $(".delete-time").on("click", function () {
+      var deleteTimeID = $(this).attr('data-value');
+      console.log("Clicked" + JSON.stringify(deleteTimeID));
 
+      $.ajax({
+        method: "DELETE",
+        url: "/api/availability/" + deleteTimeID
+      });
+      location.reload();
+    });
+  });
 </script>
