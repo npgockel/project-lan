@@ -19,5 +19,14 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
+  Timeblocks.associate = function(models) {
+    Timeblocks.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: true,
+      },
+      as: 'Partner',
+    });
+  };
+
   return Timeblocks;
 };

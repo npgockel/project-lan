@@ -29,9 +29,7 @@
 
     flatpickr($("#end_time"), {
       enableTime: true,
-      noCalendar: true,
-      dateFormat: "H:i",
-      time_24hr: false
+      dateFormat: "Y-m-d H:i",
     });
 
     var submitButton = $("<button>")
@@ -95,8 +93,10 @@
       $.ajax({
         method: "DELETE",
         url: "/api/availability/" + deleteTimeID
-      });
-      location.reload();
+      }).then(function (result) {
+        location.reload();
+      })
+
     });
   });
 </script>
