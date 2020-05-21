@@ -3,7 +3,7 @@ const router = require("express").Router();
 const postRoutes = require("./postsController");
 const userRoutes = require("./usersController");
 const availabilityRoutes = require("./availabilityController");
-const timeBlockRoutes = require("./timeblockController");
+const timeBlockRoutes = require("./timeBlockController");
 
 // Hook up to the router
 router.use("/posts", postRoutes);
