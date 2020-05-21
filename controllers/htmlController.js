@@ -26,8 +26,14 @@ router.get("/home", function (req, res) {
 // });
 
 router.get("/availability", isAuthenticated, function (req, res) {
-  db.Timeblocks.findAll({ raw: true, include: [db.User] }) // Joins User to Timeblocks! And scrapes all the seqeulize stuff off
+  console.log("req.user: ", req.user);
+  db.Timeblocks.findAll({
+    where: { UserId: req.user.id },
+    raw: true,
+    // include: [db.User]
+  }) // Joins User to Timeblock! And scrapes all the seqeulize stuff off
     .then(dbModel => {
+      console.log(dbModel);
       res.render("availability", { user: req.body, Timeblocks: dbModel });
     })
     .catch(err => res.status(422).json(err));

@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md">
-            <legend>Deployments</legend>
+            <legend>Upcoming Deployments</legend>
             <div id="forum-posts">
             {{#each schedules}}
             <div class="forum-post-card card text-white bg-primary mb-3">
@@ -34,6 +34,7 @@
             {{/each}}
             </div>
         </div>
+    
 
 
     </div>
@@ -42,22 +43,10 @@
         <div class="col-md">
             <form class="forum-post">
                 <fieldset>
-                    <legend>Create Your Own Post</legend>
-                    <p>
-                        Type in your post title and body below, and click submit to send it to our database. We will register it with your email address, and display it above with everyone else's posts!</p>
-                    </p>
-                    <div class="form-group">
-                        <label for="title-input">Title</label>
-                        <input type="text" class="form-control" id="title-input" aria-describedby="postHelp"
-                            placeholder="Enter your post title">
-                        <small id="postHelp" class="form-text text-muted">This'l be shared!</small>
+                    <legend>Available Deployments</legend>
+                    <div>
+                        {{!-- display all timeblocks with a buttom to "claim", move up to "upcoming" after --}}
                     </div>
-                    <div class="form-group">
-                        <label for="body-input">Body</label>
-                        <textarea class="form-control" id="body-input" name="body"
-                            placeholder="Enter your post body"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Post!</button>
                 </fieldset>
             </form>
             <br />
