@@ -12,31 +12,25 @@
         <div class="col-md">
             <legend>Upcoming Deployments</legend>
             <div id="forum-posts">
-            {{#each schedules}}
-            <div class="forum-post-card card text-white bg-primary mb-3">
-                <div class="card-header"><h4 class="text-white">{{gameName}}</h4></div>
-                <div class="card-body">
-                    <p class="card-text">{{start_time}}{{end_time}}</p>
-                    by {{'User.email'}}
-                    @ {{createdAt}}
+
+                {{#each Timeblocks}}<li>{{start_time}} - {{end_time}}</li><button class="addPlayer"
+                    data-value={{id}}>SquaddleIN</button>
+                {{/each}}
+
+                {{#each posts}}
+                <div class="forum-post-card card text-white bg-primary mb-3">
+                    <div class="card-header">
+                        <h4 class="text-white">{{title}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{body}}</p>
+                        by {{'User.email'}}
+                        @ {{createdAt}}
+                    </div>
                 </div>
-            </div>
-            {{/each}}
-            {{#each posts}}
-            <div class="forum-post-card card text-white bg-primary mb-3">
-                <div class="card-header"><h4 class="text-white">{{title}}</h4></div>
-                <div class="card-body">
-                    <p class="card-text">{{body}}</p>
-                    by {{'User.email'}}
-                    @ {{createdAt}}
-                </div>
-            </div>
-            {{/each}}
+                {{/each}}
             </div>
         </div>
-    
-
-
     </div>
 
     <div class="row">
@@ -45,8 +39,32 @@
                 <fieldset>
                     <legend>Available Deployments</legend>
                     <div>
-                        {{!-- display all timeblocks with a buttom to "claim", move up to "upcoming" after --}}
+
                     </div>
+                </fieldset>
+            </form>
+            <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <form class="forum-post">
+                <fieldset>
+                    <legend>Send Deploy</legend>
+
+                    <div class="form-group">
+                        <label for="title-input">Link</label>
+                        <input type="text" class="form-control" id="title-input" aria-describedby="postHelp"
+                            placeholder="Deploy Link">
+                        <small id="postHelp" class="form-text text-muted">Shared!</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="body-input">Chat</label>
+                        <textarea class="form-control" id="body-input" name="body"
+                            placeholder="Send a message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">SQUADDLE!</button>
                 </fieldset>
             </form>
             <br />
@@ -88,12 +106,13 @@
                 body: body
             })
                 .then(function () {
-                    window.location.replace("/forum");
+                    window.location.replace("/deploy");
                     // If there's an error, log the error
                 })
                 .catch(function (err) {
                     console.log(err);
                 });
         }
+
     });
 </script>
