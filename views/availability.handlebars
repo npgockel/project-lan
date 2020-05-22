@@ -11,7 +11,8 @@
 
       <h3>Your Availabilities:</h3>
 
-      {{#each Timeblocks}}<li>{{start_time}} - {{end_time}}</li><button class="delete-time" data-value={{id}}>Delete
+      {{#each Timeblocks}}
+      <li>{{start_time}} - {{end_time}}</li><button class="delete-time" data-value={{id}}>Delete
         {{id}}</button>{{/each}}
 
     </div>
