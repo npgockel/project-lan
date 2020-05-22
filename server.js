@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "test") {
 // if we need it! {force:true}
 // Syncing our database and logging a message to the user upon success
 // db.sequelize.sync(config).then(function () {
-db.sequelize.sync(config).then(function () {
+db.sequelize.sync(config).then(function() {
   if (process.env.NODE_ENV === "test") {
     db.User.create({ email: "test@test.com", password: "password" }).then(
       () => {
@@ -55,7 +55,7 @@ db.sequelize.sync(config).then(function () {
       }
     );
   }
-  app.listen(PORT, function () {
+  app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,

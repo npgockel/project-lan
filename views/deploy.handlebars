@@ -4,30 +4,22 @@
     <div class="row">
         <div class="col-md">
             <div class="jumbotron">
-                <h4 class="display-6">Hello, {{user.username}}!</h4>
+                {{#if user.username}}
+                <h4 class="display-6">{{user.username}}! Squaddle in!</h4>
+                {{else}}
+                <h4 class="display-6 text-center">Squaddle in!</h4>
+                {{/if}}
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md">
             <legend>Upcoming Deployments</legend>
-            <div id="forum-posts">
+            <div id="deployments">
 
-                {{#each Timeblocks}}<li>{{start_time}} - {{end_time}}</li><button class="addPlayer"
-                    data-value={{id}}>SquaddleIN</button>
-                {{/each}}
-
-                {{#each posts}}
-                <div class="forum-post-card card text-white bg-primary mb-3">
-                    <div class="card-header">
-                        <h4 class="text-white">{{title}}</h4>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{body}}</p>
-                        by {{'User.email'}}
-                        @ {{createdAt}}
-                    </div>
-                </div>
+                {{#each Deploys}}
+                <li>Game: {{gameName}} starts:{{start_time}} - {{end_time}}</li>
+                <button class="deleteAvailability" data-value={{id}}>Delete</button>
                 {{/each}}
             </div>
         </div>
@@ -35,11 +27,14 @@
 
     <div class="row">
         <div class="col-md">
-            <form class="forum-post">
+            <form class="deployment-post">
                 <fieldset>
                     <legend>Available Deployments</legend>
                     <div>
-
+                        {{#each Availabilities}}
+                        <li>{{start_time}} - {{end_time}}</li>
+                        <button class="addAvailability" data-value={{id}}>SquaddleIN</button>
+                        {{/each}}
                     </div>
                 </fieldset>
             </form>
@@ -49,15 +44,15 @@
 
     <div class="row">
         <div class="col-md">
-            <form class="forum-post">
+            <form class="deployment-post">
                 <fieldset>
                     <legend>Send Deploy</legend>
 
                     <div class="form-group">
                         <label for="title-input">Link</label>
-                        <input type="text" class="form-control" id="title-input" aria-describedby="postHelp"
+                        <input type="text" class="form-control " id="title-input" aria-describedby="deployHelp"
                             placeholder="Deploy Link">
-                        <small id="postHelp" class="form-text text-muted">Shared!</small>
+                        <small id="deployHelp" class="form-text text-muted">Shared!</small>
                     </div>
                     <div class="form-group">
                         <label for="body-input">Chat</label>
@@ -75,33 +70,33 @@
 <script>
     $(document).ready(function () {
         // Getting references to our form and inputs
-        const postForm = $("form.forum-post");
+        const deployForm = $("form.deployment-post");
         const titleInput = $("input#title-input");
         const bodyInput = $("textarea#body-input");
 
         // When the form is submitted, we validate there's a title and body entered
-        postForm.on("submit", function (event) {
+        deployForm.on("submit", function (event) {
             event.preventDefault();
             console.log(bodyInput.val(), titleInput.val())
-            var postData = {
+            var deployData = {
                 title: titleInput.val().trim(),
                 body: bodyInput.val().trim()
             };
 
-            if (!postData.title || !postData.body) {
+            if (!deployData.title || !deployData.body) {
                 return;
             }
 
 
-            // If we have a title and password  we run the sendPost function and clear the form
-            sendPost(postData.title, postData.body);
+            // If we have a title and password  we run the sendDeploy function and clear the form
+            sendDeploy(deployData.title, deployData.body);
             titleInput.val("");
             bodyInput.val("");
         });
 
-        // sendPost does a post to our "api/posts" route and if successful, redirects us the the forum page
-        function sendPost(title, body) {
-            $.post("/api/posts", {
+        // sendDeploy does a post to our "api/deploy" route and if successful, redirects us the the deployment page
+        function sendDeploy(title, body) {
+            $.post("/api/deploy", {
                 title: title,
                 body: body
             })
@@ -113,6 +108,21 @@
                     console.log(err);
                 });
         }
+        $(".addAvailability").on("click", function () {
+            var availabilityId = $(this).attr('data-value')
+            console.log("Clicked", availabilityId);
+
+            $.ajax({
+                method: "POST",
+                url: "/api/userSchedule",
+                data: {
+                    availability: availabilityId
+                }
+            }).then(function (result) {
+                location.reload();
+            })
+
+        });
 
     });
 </script>
