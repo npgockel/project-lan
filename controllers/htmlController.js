@@ -35,8 +35,7 @@ router.get("/availability", isAuthenticated, function(req, res) {
 });
 
 router.get("/deploy", isAuthenticated, function(req, res) {
-  console.log("req.user: ", req.user);
-  db.Timeblocks.findAll() // Joins User to Timeblock! And scrapes all the seqeulize stuff off
+  db.Timeblocks.findAll()
     .then((dbModel) => {
       console.log(dbModel);
       res.render("deploy", { user: req.user, Timeblocks: dbModel });
