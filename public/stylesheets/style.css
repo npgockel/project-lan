@@ -3,12 +3,16 @@ form.login {
   margin-top: 50px;
 }
 
-.forum-post-card {
+.deployment-post-card {
   width: 100%;
 }
 
-.forum-post {
+.deployment-post {
   width: 100%;
+}
+
+.input-group {
+  margin-left: 10px;
 }
 
 footer {
@@ -23,11 +27,13 @@ body {
   background-size: cover;
 }
 .row {
-background-color: rgba(255, 255, 255, 0.8);;
+  background-color: rgba(160, 145, 112, 0.8);
 }
 
 .navbar {
   margin-bottom: 30px;
 }
 
-
+.times {
+  width: 80%;
+}

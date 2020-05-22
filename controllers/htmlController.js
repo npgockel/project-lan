@@ -2,6 +2,7 @@
 const router = require("express").Router();
 const db = require("../models");
 const axios = require("axios");
+const Op = db.Sequelize.Op;
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -22,23 +23,37 @@ router.get("/home", function(req, res) {
 
 router.get("/availability", isAuthenticated, function(req, res) {
   console.log("req.user: ", req.user);
-  db.Timeblocks.findAll({
+  db.Availability.findAll({
     where: { UserId: req.user.id },
     raw: true,
     // include: [db.User]
   }) // Joins User to Timeblock! And scrapes all the seqeulize stuff off
     .then((dbModel) => {
       console.log(req.user);
-      res.render("availability", { user: req.user, Timeblocks: dbModel });
+      res.render("availability", { user: req.user, Availability: dbModel });
     })
     .catch((err) => res.status(422).json(err));
 });
 
-router.get("/deploy", isAuthenticated, function(req, res) {
-  db.Timeblocks.findAll()
+router.get("/deploy", isAuthenticated, async function(req, res) {
+  var Deploys = await db.Deploy.findAll({ raw: true });
+
+  console.log(Deploys);
+  db.Availability.findAll({
+    where: {
+      UserId: {
+        [Op.ne]: req.user.id,
+      },
+    },
+    raw: true,
+  })
     .then((dbModel) => {
       console.log(dbModel);
-      res.render("deploy", { user: req.user, Timeblocks: dbModel });
+      res.render("deploy", {
+        user: req.user,
+        Availabilities: dbModel,
+        Deploys: Deploys,
+      });
     })
     .catch((err) => res.status(422).json(err));
 });
@@ -69,18 +84,6 @@ router.get("/login", function(req, res) {
     res.render("login", { user: req.user });
   }
 });
-
-/**
- * Forum Page -
- * Notice loading our posts, with that include!
- */
-// router.get("/deploy", isAuthenticated, function(req, res) {
-//   db.Post.findAll({ raw: true, include: [db.User] }) // Joins User to Posts! And scrapes all the seqeulize stuff off
-//     .then((dbModel) => {
-//       res.render("deploy", { user: req.user, posts: dbModel });
-//     })
-//     .catch((err) => res.status(422).json(err));
-// });
 
 /**
  * Generic Error Page

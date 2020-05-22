@@ -1,19 +1,29 @@
 {{> navbar user}}
 
 
-<div class="container">
-  <div class="row">
-    <div>
+<div class="container d-flex justify-content-center">
+  <div class="row ">
+    <div id="time-block">
       <h3> When are you available? </h3>
-      <input id="start_time" placeholder="Start Time"></input>
-      <input id="end_time" placeholder="End Time"></input>
-      <button class="button is-primary submit_time">+</button>
+      <div class="input-group mb-3 times">
+        <input id="start_time" type="text" class="form-control" aria-label="Start Time"
+          aria-describedby="inputGroup-start-time" placeholder="Start Time">
+      </div>
+
+      <div class="input-group mb-3 times">
+        <input id="end_time" type="text" class="form-control" aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default" placeholder="End Time"><button
+          class="btn-success submit_time">+</button>
+      </div>
+
 
       <h3>Your Availabilities:</h3>
 
-      {{#each Timeblocks}}
-      <li>{{start_time}} - {{end_time}}</li><button class="delete-time" data-value={{id}}>Delete
-        {{id}}</button>{{/each}}
+      <ul class="list-group">
+        {{#each Availability}}
+        <li class="list-group-item"><button type="button" class="delete-time btn-sm btn-danger" data-value={{id}}>
+            -</button> {{start_time}} - {{end_time}}</li>{{/each}}
+      </ul>
 
     </div>
 
@@ -68,12 +78,12 @@
 
           // If a table is available... tell user they are booked.
           if (data) {
-            alert("Time is added");
+            console.log("Time is added");
           }
 
           // If a table is available... tell user they on the waiting list.
           else {
-            alert("Select Anouther Time");
+            alert("Select Another Time");
           }
 
           //clear input
