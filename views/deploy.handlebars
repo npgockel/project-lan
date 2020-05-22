@@ -17,19 +17,9 @@
             <legend>Upcoming Deployments</legend>
             <div id="deployments">
 
-
-
                 {{#each Deploys}}
-                <div class="deployment-post-card card text-white bg-primary mb-3">
-                    <div class="card-header">
-                        <h4 class="text-white">{{title}}</h4>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{body}}</p>
-                        by {{'User.email'}}
-                        @ {{createdAt}}
-                    </div>
-                </div>
+                <li>Game: {{gameName}} starts:{{start_time}} - {{end_time}}</li>
+                <button class="deleteAvailability" data-value={{id}}>Delete</button>
                 {{/each}}
             </div>
         </div>
@@ -43,7 +33,7 @@
                     <div>
                         {{#each Availabilities}}
                         <li>{{start_time}} - {{end_time}}</li>
-                        <button class="addPlayer" data-value={{id}}>SquaddleIN</button>
+                        <button class="addAvailability" data-value={{id}}>SquaddleIN</button>
                         {{/each}}
                     </div>
                 </fieldset>
@@ -118,15 +108,18 @@
                     console.log(err);
                 });
         }
-        $(".addPlayer").on("click", function () {
-            var playerId = $(this).attr('data-value')
-            console.log("Clicked", playerId);
+        $(".addAvailability").on("click", function () {
+            var availabilityId = $(this).attr('data-value')
+            console.log("Clicked", availabilityId);
 
             $.ajax({
-                method: "PUT",
-                url: "/api/availability/" + playerId
+                method: "POST",
+                url: "/api/userSchedule",
+                data: {
+                    availability: availabilityId
+                }
             }).then(function (result) {
-                //`location.reload();
+                location.reload();
             })
 
         });

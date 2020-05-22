@@ -5,7 +5,8 @@ const router = require("express").Router();
  * userSchedule - Read All
  */
 router.get("/", function(req, res) {
-  db.user_Schedule.findAll(req.query)
+  db.user_Schedule
+    .findAll(req.query)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });
@@ -14,7 +15,8 @@ router.get("/", function(req, res) {
  * userSchedule - Read One
  */
 router.get("/:id", function(req, res) {
-  db.user_Schedule.findById(req.params.id)
+  db.user_Schedule
+    .findById(req.params.id)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });
@@ -24,11 +26,39 @@ router.get("/:id", function(req, res) {
  * Notice how we are also taking in the User Id! Important!
  */
 router.post("/", function(req, res) {
-  db.user_Schedule.create({
-      UserId: req.user.id,
-      Availability: 
-  })
-    .then((dbModel) => res.json(dbModel))
+  db.User.findByPk(req.user.id)
+    .then((user) => {
+      db.Availability.findByPk(req.body.availability).then((availability) => {
+        if (availability.ScheduleId) {
+          db.Schedule.findByPk(availability.ScheduleId).then((schedule) => {
+            user.addSchedule(schedule).then((dbModel) => {
+              res.json(dbModel);
+            });
+          });
+        } else {
+          db.Schedule.create({
+            start_time: availability.start_time,
+            end_time: availability.end_time,
+          }).then((newSchedule) => {
+            db.Availability.update(
+              {
+                ScheduleId: newSchedule.id,
+              },
+              {
+                where: {
+                  id: availability.id,
+                },
+              }
+            ).then(() => {
+              user.addSchedule(newSchedule).then((dbModel) => {
+                res.json(dbModel);
+              });
+            });
+          });
+        }
+      });
+    })
+
     .catch((err) => res.status(422).json(err));
 });
 
@@ -36,7 +66,8 @@ router.post("/", function(req, res) {
  * userSchedule - Update
  */
 router.put("/:id", function(req, res) {
-  db.user_Schedule.update(req.body, { where: { id: req.params.id } })
+  db.user_Schedule
+    .update(req.body, { where: { id: req.params.id } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });
@@ -45,7 +76,8 @@ router.put("/:id", function(req, res) {
  * userSchedule - Delete
  */
 router.delete("/:id", function(req, res) {
-  db.userSchedule.destroy({ where: { id: req.params.id } })
+  db.userSchedule
+    .destroy({ where: { id: req.params.id } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });

@@ -17,16 +17,21 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
       },
     });
-  };
-
-  Availability.associate = function(models) {
-    Availability.belongsTo(models.User, {
+    Availability.belongsTo(models.Schedule, {
       foreignKey: {
         allowNull: true,
       },
-      as: "Partner",
     });
   };
+
+  // Availability.associate = function(models) {
+  //   Availability.belongsTo(models.User, {
+  //     foreignKey: {
+  //       allowNull: true,
+  //     },
+  //     as: "Partner",
+  //   });
+  // };
 
   return Availability;
 };

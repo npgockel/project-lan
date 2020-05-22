@@ -72,11 +72,9 @@ module.exports = function(sequelize, DataTypes) {
     User.hasMany(models.Deploy, {
       onDelete: "cascade",
     });
-    User.belongsToMany(models.Availability, {
-      through: "User_Schedule",
-    });
-    User.hasMany(models.Availability, {
-      onDelete: "cascade",
+    User.hasMany(models.Availability);
+    User.belongsToMany(models.Schedule, {
+      through: "UserSchedule",
     });
   };
 

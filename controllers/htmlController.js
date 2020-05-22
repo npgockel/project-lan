@@ -36,23 +36,31 @@ router.get("/availability", isAuthenticated, function(req, res) {
 });
 
 router.get("/deploy", isAuthenticated, async function(req, res) {
-  var Deploys = await db.Deploy.findAll({ raw: true });
+  var user = await db.User.findByPk(req.user.id);
+  var Availabilities = await user.getAvailabilities();
+  var deploys = await user.getSchedules({ raw: true });
+  const scheduleIds = deploys.map((availability) => availability.id);
 
-  console.log(Deploys);
+  console.table(scheduleIds);
   db.Availability.findAll({
     where: {
       UserId: {
         [Op.ne]: req.user.id,
       },
+      ScheduleId: {
+        [Op.or]: {
+          [Op.notIn]: scheduleIds,
+          [Op.eq]: null,
+        },
+      },
     },
     raw: true,
   })
-    .then((dbModel) => {
-      console.log(dbModel);
+    .then((availableAvailabilities) => {
       res.render("deploy", {
         user: req.user,
-        Availabilities: dbModel,
-        Deploys: Deploys,
+        Availabilities: availableAvailabilities,
+        Deploys: deploys,
       });
     })
     .catch((err) => res.status(422).json(err));

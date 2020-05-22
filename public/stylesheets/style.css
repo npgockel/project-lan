@@ -26,6 +26,9 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
+}
+
+
 .row {
   background-color: rgba(160, 145, 112, 0.8);
 }
@@ -33,7 +36,6 @@ body {
 .navbar {
   margin-bottom: 30px;
 }
-
 .times {
   width: 80%;
 }
