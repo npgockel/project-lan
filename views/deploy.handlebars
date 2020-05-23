@@ -1,7 +1,7 @@
 {{> navbar user}}
 
 <div class="container">
-    <div class="row">
+    <div class="row static-div">
         <div class="col-md">
             <div class="">
                 {{#if user.username}}
@@ -13,33 +13,41 @@
         </div>
     </div>
     <div class="row static-div">
-        <div class="col-md">
-            <legend>Upcoming Deployments</legend>
-            <div id="deployments">
-
+        <div class="deployment-post">
+            <h3 class="page-title">Upcoming Deployments</h3>
+            <table class="table table-striped">
                 {{#each Deploys}}
-                <li>Game: {{gameName}} starts:{{start_time}} - {{end_time}}</li>
-                <button class="deleteAvailability" data-value={{id}}>Delete</button>
+                <tr>
+                    <th class="lead">
+                    <h3>Game: {{gameName}} </h3>
+                    <p><span class= "font-weight-bold">Starts:</span> {{start_time}}</p>
+                    </th>
+                    {{!-- <th>
+                        <button class="deleteAvailability" data-value={{id}}>-</button>
+                    </th> --}}
+                </tr>
                 {{/each}}
-            </div>
+            </table>
         </div>
     </div>
 
     <div class="row static-div">
-        <div class="col-md">
-            <form class="deployment-post">
-                <fieldset>
-                    <legend>Available Deployments</legend>
-                    <div>
-                        {{#each Availabilities}}
-                        <li>{{start_time}} - {{end_time}}</li>
-                        <button class="addAvailability" data-value={{id}}>SquaddleIN</button>
-                        {{/each}}
-                    </div>
-                </fieldset>
-            </form>
-            <br />
+        <div class="deployment-post">
+            <h3 class="page-title">Available Deployments</h3>
+            <table class="table table-striped">
+                {{#each Availabilities}}
+                <tr>
+                    <th class="lead">{{start_time}} - {{end_time}}
+                    </th>
+                    <th>
+                        <button class="addAvailability btn btn-success" data-value={{id}}>SquaddleIN</button>
+                    </th>
+                </tr>
+                {{/each}}
+            </table>
         </div>
+        <br />
+
     </div>
 
     {{!-- <div class="row static-div">
@@ -113,6 +121,22 @@
                 url: "/api/userSchedule",
                 data: {
                     availability: availabilityId
+                }
+            }).then(function (result) {
+                location.reload();
+            })
+
+        });
+
+        $(".deleteAvailability").on("click", function () {
+            var scheduleId = $(this).attr('data-value');
+            //console.log("Clicked" + JSON.stringify(deleteTimeID));
+            console.log("clicked", scheduleId)
+            $.ajax({
+                method: "DELETE",
+                url: "/api/userSchedule",
+                data: {
+                    id: scheduleId
                 }
             }).then(function (result) {
                 location.reload();
