@@ -5,7 +5,7 @@ const router = require("express").Router();
  * userSchedule - Read All
  */
 router.get("/", function(req, res) {
-  db.user_Schedule
+  db.userSchedule
     .findAll(req.query)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
  * userSchedule - Read One
  */
 router.get("/:id", function(req, res) {
-  db.user_Schedule
+  db.userSchedule
     .findById(req.params.id)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -66,7 +66,7 @@ router.post("/", function(req, res) {
  * userSchedule - Update
  */
 router.put("/:id", function(req, res) {
-  db.user_Schedule
+  db.userSchedule
     .update(req.body, { where: { id: req.params.id } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
@@ -76,8 +76,7 @@ router.put("/:id", function(req, res) {
  * userSchedule - Delete
  */
 router.delete("/:id", function(req, res) {
-  db.userSchedule
-    .destroy({ where: { id: req.params.id } })
+  db.userSchedule.destroy({ where: { id: data } })
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });
