@@ -1,10 +1,14 @@
 {{> navbar user}}
 
 
-<div class="container d-flex justify-content-center">
-  <div class="row ">
-    <div id="time-block">
-      <h3> When are you available? </h3>
+<div class="container">
+  <div class="row d-flex justify-content-center text-center">
+    <div class="col">
+      <h3 class="page-title ">When are you available?</h3>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center text-center">
+    <div class="static-div">
       <div class="input-group mb-3 times">
         <input id="start_time" type="text" class="form-control" aria-label="Start Time"
           aria-describedby="inputGroup-start-time" placeholder="Start Time">
@@ -12,12 +16,14 @@
 
       <div class="input-group mb-3 times">
         <input id="end_time" type="text" class="form-control" aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default" placeholder="End Time"><button
-          class="btn-success submit_time">+</button>
+          aria-describedby="inputGroup-sizing-default" placeholder="End Time">
       </div>
+      <button
+          class="btn-success submit_time">+</button>
+    </div>
 
-
-      <h3>Your Availabilities:</h3>
+    <div class="row">
+      <h3 class="page-title">Your Availabilities:</h3>
 
       <ul class="list-group">
         {{#each Availability}}
@@ -56,8 +62,6 @@
       var end_time = $("#end_time");
 
       event.preventDefault();
-      console.log("i was clicked");
-      console.log(start_time.val(), end_time.val())
 
       //data object
       var scheduleData = {
@@ -66,7 +70,6 @@
         end_time: end_time.val().trim(),
 
       };
-      console.log(JSON.stringify(scheduleData))
       // if no input return
       if (!scheduleData.start_time || !scheduleData.end_time) {
         return;

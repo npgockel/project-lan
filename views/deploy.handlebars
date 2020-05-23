@@ -3,16 +3,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md">
-            <div class="jumbotron">
+            <div class="">
                 {{#if user.username}}
-                <h4 class="display-6">{{user.username}}! Squaddle in!</h4>
+                <h1 class="text-center page-title">{{user.username}}! Squaddle in!</h1>
                 {{else}}
-                <h4 class="display-6 text-center">Squaddle in!</h4>
+                <h1 class="text-center page-title">Squaddle in!</h1>
                 {{/if}}
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row static-div">
         <div class="col-md">
             <legend>Upcoming Deployments</legend>
             <div id="deployments">
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row static-div">
         <div class="col-md">
             <form class="deployment-post">
                 <fieldset>
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row static-div">
         <div class="col-md">
             <form class="deployment-post">
                 <fieldset>
@@ -52,7 +52,6 @@
                         <label for="title-input">Link</label>
                         <input type="text" class="form-control " id="title-input" aria-describedby="deployHelp"
                             placeholder="Deploy Link">
-                        <small id="deployHelp" class="form-text text-muted">Shared!</small>
                     </div>
                     <div class="form-group">
                         <label for="body-input">Chat</label>
@@ -77,7 +76,6 @@
         // When the form is submitted, we validate there's a title and body entered
         deployForm.on("submit", function (event) {
             event.preventDefault();
-            console.log(bodyInput.val(), titleInput.val())
             var deployData = {
                 title: titleInput.val().trim(),
                 body: bodyInput.val().trim()
@@ -110,8 +108,6 @@
         }
         $(".addAvailability").on("click", function () {
             var availabilityId = $(this).attr('data-value')
-            console.log("Clicked", availabilityId);
-
             $.ajax({
                 method: "POST",
                 url: "/api/userSchedule",

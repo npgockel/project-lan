@@ -1,41 +1,76 @@
+a {
+    color: #ffc40b;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+a:hover,
+a:active {
+    color: #ffc40b;
+}
+
+
+/* .nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: #ffc40b;
+} */
+
 form.signup,
 form.login {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 
 .deployment-post-card {
-  width: 100%;
+    width: 100%;
 }
 
 .deployment-post {
-  width: 100%;
+    width: 100%;
 }
 
 .input-group {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 footer {
-  text-align: center;
-  background-color: black;
+    text-align: center;
+    background-color: black;
 }
 
 body {
-  background-image: url("/images/pexels--close-up-photography-of-yellow-green-red-and-brown-plastic-163064--tinyimg-compressed.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
+    background-image: url("/images/pexels--close-up-photography-of-yellow-green-red-and-brown-plastic-163064--tinyimg-compressed.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-bottom: 60px;
 }
 
+.frontispiece {
+    background-color: #ffc40b99;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 8px;
+}
+
+.page-title {
+    text-shadow: 2px 2px 4px #000000;
+    color: #ffc40b
+}
+
+.static-div {
+    background-color: #ffc40b99;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 4px;
+}
 
 .row {
-  background-color: rgba(160, 145, 112, 0.8);
+    margin: 4px;
 }
 
 .navbar {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
+
 .times {
-  width: 80%;
+    width: 80%;
 }
