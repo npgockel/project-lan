@@ -2,14 +2,24 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md">
+        <div class="col">
             <div class="">
-                <h4 class="display-6 text-center">WELCOME TO</h4>
-                <img src="/images/Logo-In-Welcome.png" class="img-fluid">
+                {{#if user.email}}
+                <a href="/deploy">
+                {{else}}
+                <a href="/login">
+                {{/if}}
+                <img src="/images/Logo-In-Welcome.png" class="img-fluid"></a>
             </div>
-            <div>
-                <h5>Hi</h5>
-            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+                <div class="frontispiece text-center font-weight-bolder">
+                    <h3>Squaddle is an app designed to help you play game with friends according to <strong>your</strong> schedule.  Once signed in, set your availability then view the available deployment times to link up with your friends.
+                    <br><br>
+                    Link up and Squaddle in!</h3>
+                </div>
         </div>
     </div>
 </div>
